@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Respirapp</title>
+
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#020617">
+    <link rel="manifest" href="./manifest.webmanifest">
+
+    <!-- iOS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+
+    <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico">
+
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <main class="home editorial">
+        <div class="colaborar">
+            <div class="about-cards">
+                <a class="btn-ghost" href="https://link.mercadopago.com.ar/respirapp"
+                    aria-label="Colaborar con el proyecto" target="_blank">
+                    Colaborar ☕
+                </a>
+            </div>
+        </div>
+
+        <!-- BLOQUE SUPERIOR -->
+        <header class="home-header">
+            <h1 class="home-title">
+                <span class="respirapp" aria-label="RESPIRAPP">RESPIRAPP</span>
+            </h1>
+
+            <p class="home-subtitle">
+                Respirá un momento. <br>
+                El resto puede esperar.
+            </p>
+        </header>
+
+        <!-- BLOQUE CENTRAL (vacío a propósito, da aire) -->
+        <section class="home-spacer"></section>
+
+        <!-- BLOQUE INFERIOR -->
+        <a href="./pages/presets.html" class="home-cta">
+            Comenzar
+        </a>
+        <br>
+
+        <a href="#" id="openAudio" class="link-ghost home-link">
+            Sonidos
+        </a>
+        <a href="./pages/about.html" class="link-ghost home-link">
+            Más info
+        </a>
+
+    </main>
+    <!-- Service Worker Registration -->
+    <script src="./js/sw-register.js"></script>
+    <script type="module" src="./js/audio_modal.js"></script>
+    <script type="module">
+        import { injectAudioModal, initAudioModal } from './js/audio_modal.js';
+        injectAudioModal();
+        initAudioModal({ openButtonSelector: '#openAudio' }); 
+    </script>
+</body>
+
+</html>

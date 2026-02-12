@@ -1,0 +1,1104 @@
+/* =========================================
+   VARIABLES (colores, tamaños, botones)
+   ========================================= */
+:root {
+    /* App */
+    --bg: #020617;
+    --fg: #cbcdd1;
+
+    /* Animación respiración */
+    --scale-min: 1;
+    --scale-max: 1.6;
+    --phase-duration: 4s;
+
+    /* Botones */
+    --btn-bg: #cbcdd1;
+    --btn-bg-hover: #020617;
+    --btn-fg: #0b132b;
+    --btn-radius: 10px;
+    --btn-height: 48px;
+    /* tamaño táctil (>=44px) */
+    --btn-minw: 56px;
+    --btn-gap: 36px;
+    --btn-shadow: 0 2px 10px rgba(0, 0, 0, .18);
+    --btn-shadow-pressed: 0 1px 6px rgba(0, 0, 0, .24);
+    --app-max-width: 420px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.colaborar {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    z-index: 1000;
+}
+
+/* =========================================
+   LAYOUT BASE
+   ========================================= */
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+main {
+    width: min(100%, var(--app-max-width));
+    margin: 0 auto;
+    padding: 0 16px 32px;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+p {
+    margin: 0px 0px 16px;
+}
+
+/* Estilo base del wordmark */
+.respirapp {
+    display: inline-block;
+    font-weight: 500;
+    color: #cbcdd1;
+    text-shadow: 0 0 20px rgba(79, 195, 247, .15);
+    transform-origin: center;
+    /* timing tipo “sine” para inspirar/espirar continuo */
+    animation: respiracion 5s cubic-bezier(.445, .05, .55, .95) infinite;
+    will-change: transform;
+}
+
+@keyframes respiracion {
+    0% {
+        transform: scale(0.95);
+        opacity: .98;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.95);
+        opacity: .98;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .respirapp {
+        animation: none;
+    }
+}
+
+
+.card-wrapper {
+    margin-top: 16px;
+    min-height: 600px;
+    width: 100%;
+    max-width: none;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.config-card {
+    margin-top: 32px;
+    width: 100%;
+    max-width: none;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header p {
+    padding: 0;
+    margin: 5px 0;
+}
+
+
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+.timer {
+    font-size: 5rem;
+    font-weight: bold;
+}
+
+.session {
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--btn-gap);
+    margin-top: 2rem;
+}
+
+/* =========================================
+   ANIMACIÓN DE RESPIRACIÓN (.phase-word)
+   ========================================= */
+.phase-word {
+    font-size: 2.5rem;
+    font-weight: 600;
+    transform-origin: center;
+    will-change: transform;
+}
+
+/* Fases */
+.phase-word.inhale {
+    animation-name: inhale;
+    animation-duration: var(--phase-duration);
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+/* Hold después de inhalar → grande */
+.phase-word.hold,
+.phase-word.holdAfterInhale {
+    transform: scale(var(--scale-max));
+}
+
+/* Hold después de exhalar → chico */
+.phase-word.holdAfterExhale {
+    transform: scale(var(--scale-min));
+}
+
+.phase-word.exhale {
+    animation-name: exhale;
+    animation-duration: var(--phase-duration);
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+/* Pausa visual */
+.paused .phase-word {
+    animation-play-state: paused;
+}
+
+/* Keyframes únicos */
+@keyframes inhale {
+    from {
+        transform: scale(var(--scale-min));
+    }
+
+    to {
+        transform: scale(var(--scale-max));
+    }
+}
+
+@keyframes exhale {
+    from {
+        transform: scale(var(--scale-max));
+    }
+
+    to {
+        transform: scale(var(--scale-min));
+    }
+}
+
+/* =========================================
+   INPUTS & CONFIG (idle)
+   ========================================= */
+.durations,
+.breathing {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 6px;
+}
+
+.durations .custom,
+.breathing label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.durations label,
+.breathing span {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* Input numérico compacto (común) */
+input[type="number"] {
+    width: 64px;
+    height: 32px;
+    font-size: 1rem;
+    text-align: center;
+    background: #cbcdd1;
+    color: #020617;
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    outline: none;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+input[type="number"]:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+input[type="number"]:disabled {
+    opacity: 0.55;
+}
+
+/* Quitar spinners nativos */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* =========================================
+   STEPPERS (+ / −)
+   ========================================= */
+.stepper {
+    width: 100%;
+}
+
+.stepper-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stepper-box input[type="number"] {
+    width: 64px;
+    height: 36px;
+    text-align: center;
+    font-size: 1rem;
+    background: #cbcdd1;
+    color: #020617;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    padding: 0;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.stepper-box input[type="number"]:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+
+.stepper-btn {
+    width: 40px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: 1.25rem;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: var(--btn-shadow);
+    transition: transform .08s ease, background .15s ease, box-shadow .15s ease;
+}
+
+
+.stepper-btn:active {
+    transform: scale(0.96);
+    box-shadow: var(--btn-shadow-pressed);
+}
+
+.stepper-btn:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.stepper-row {
+    display: grid;
+    grid-template-columns: 160px auto;
+    /* ancho fijo para labels */
+    align-items: center;
+    gap: 12px;
+}
+
+.stepper-row label {
+    text-align: left;
+}
+
+/* =========================================
+   BOTONES (texto o ícono)
+   ========================================= */
+button {
+    min-width: var(--btn-minw);
+    height: var(--btn-height);
+    padding: 0 16px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    color: var(--btn-fg);
+    background: var(--btn-bg);
+    border: none;
+    border-radius: var(--btn-radius);
+    box-shadow: var(--btn-shadow);
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    transition: transform .08s ease, background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+
+/* button:hover {
+    background: var(--btn-bg-hover);
+} */
+
+button:active {
+    transform: scale(0.97);
+    box-shadow: var(--btn-shadow-pressed);
+}
+
+button:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35), var(--btn-shadow);
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Botón icónico (redondito) */
+.btn-icon {
+
+    width: 100%;
+    max-width: 320px;
+    height: var(--btn-height);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 2rem;
+
+    border-radius: var(--btn-radius);
+    box-shadow: var(--btn-shadow);
+
+    transition: transform .08s ease, box-shadow .15s ease;
+}
+
+/* Afinado cuando hay dos botones (pausa/reset) */
+.buttons .btn {
+    padding-inline: 18px;
+}
+
+/* Distinción sutil para play (idle) */
+#play,
+#pause {
+    width: 200px;
+    background: #cbcdd1;
+}
+
+/* =========================================
+   ÍCONOS – Opción B (capas + aria-pressed)
+   ========================================= */
+
+/* Caja fija y capas superpuestas */
+.btn-icon {
+    position: relative;
+    line-height: 1;
+    /* tamaño por defecto de icono */
+    --icon-size: 30px;
+}
+
+/* Capa genérica (oculta por defecto) */
+.btn-icon .icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .12s linear;
+}
+
+/* Tamaño del SVG por variable */
+.btn-icon .icon svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+/* Fallback: si algún botón inserta el SVG directo */
+.btn-icon>svg {
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
+
+/* Juega play/pause según aria-pressed */
+.btn-icon[aria-pressed="true"] .icon-pause {
+    opacity: 1;
+}
+
+.btn-icon[aria-pressed="false"] .icon-play {
+    opacity: 1;
+}
+
+/* Reset visible (no depende de aria-pressed) */
+.btn-icon .icon-reset {
+    opacity: 1;
+}
+
+/* Tamaño específico para reset */
+.btn-reset {
+    --icon-size: 26px;
+}
+
+/* Evitar “achique” al tocar */
+.buttons .btn-icon:active {
+    transform: none;
+    box-shadow: var(--btn-shadow);
+}
+
+/* =========================================
+   RESPONSIVE FINO
+   ========================================= */
+@media (max-width: 360px) {
+    :root {
+        --btn-height: 44px;
+        --btn-minw: 52px;
+        --btn-radius: 12px;
+    }
+}
+
+.app-header {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+
+.info-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(203, 205, 209, 0.12);
+    color: var(--fg);
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    opacity: 0.75;
+    transition: opacity .15s ease, background .15s ease;
+}
+
+/* .info-btn:hover {
+    opacity: 1;
+    background: rgba(203, 205, 209, 0.18);
+} */
+
+.donate-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    background: #cbcdd1;
+    color: #020617;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* =========================================
+   HOME – Layout editorial
+   ========================================= */
+
+.home.editorial {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.25rem 2rem;
+    box-sizing: border-box;
+}
+
+/* Bloque superior */
+.home-header {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.home-title {
+    font-size: 2.1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+}
+
+.home-subtitle {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    margin-top: 32px;
+    /* margin: 0; */
+    line-height: 1.4;
+}
+
+/* Espacio respirable */
+.home-spacer {
+    flex: 1;
+}
+
+/* Bloque inferior */
+.home-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+/* CTA principal */
+.home-cta {
+    width: 100%;
+    max-width: 320px;
+    height: var(--btn-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--btn-radius);
+    box-shadow: var(--btn-shadow);
+    margin-bottom: 1rem;
+    transition: transform .08s ease, box-shadow .15s ease;
+}
+
+.home-cta:active {
+    transform: scale(0.97);
+    box-shadow: var(--btn-shadow-pressed);
+}
+
+/* Botón secundario */
+.home-link {
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 320px;
+    height: 44px;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--fg);
+    opacity: 0.75;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--btn-radius);
+}
+
+.home-link:active {
+    opacity: 1;
+}
+
+/* =========================
+   SCREEN – PRESETS
+   ========================= */
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.25rem;
+}
+
+.screen-subtitle {
+    opacity: 0.8;
+    max-width: 28ch;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Botón fantasma */
+.btn-ghost {
+    height: 44px;
+    display: flex;
+    background: none;
+    color: var(--fg);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--btn-radius);
+    font-size: 0.95rem;
+    text-decoration: none;
+    align-self: flex-end;
+    align-items: center;
+    margin-top: 16px;
+}
+
+
+
+.btn-full {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+/* =========================
+   PRESETS
+   ========================= */
+
+.preset-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.preset-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--btn-radius);
+    padding: 8px 16px;
+    text-align: left;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.preset-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.preset-card:active {
+    transform: scale(0.98);
+}
+
+.preset-card h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.preset-subtitle {
+    opacity: 0.7;
+    margin: 0.25rem 0 0.75rem;
+}
+
+.preset-times {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+.preset-times li {
+    margin: 0.15rem 0;
+}
+
+.preset-desc {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    line-height: 1.4;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* =========================
+   LAYOUT EDITORIAL (NO CENTRADO)
+   ========================= */
+
+/* body.layout-editorial {
+    display: block;
+    height: 100dvw;
+} */
+
+/* =========================
+   SCREEN PRESETS
+   ========================= */
+
+.screen-presets {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.screen-header {
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+.screen-header h1 {
+    margin: 5px 0 8px;
+    font-size: 1.9rem;
+}
+
+.screen-subtitle {
+    opacity: 0.8;
+    max-width: 30ch;
+    margin: 0 auto;
+}
+
+/* =========================
+   PRESET GRID (SIN SCROLL)
+   ========================= */
+
+.preset-grid {
+    display: grid;
+    gap: 24px;
+    margin: 24px 0 8px;
+    flex-grow: 1;
+}
+
+.div-preset-option {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.preset-option {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    border-radius: var(--btn-radius);
+    padding: 1.25rem;
+    color: var(--fg);
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    box-shadow: var(--btn-shadow);
+}
+
+.preset-option strong {
+    font-size: 1.2rem;
+}
+
+.preset-option span {
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
+
+.preset-option:active {
+    transform: scale(0.98);
+}
+
+.about-card {
+    padding: 5px;
+}
+
+.about-cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.session-wraper {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.session-card {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+}
+
+.breath-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    opacity: 0.85;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 360px) {
+    .breath-title {
+        font-size: 0.9rem;
+        padding: 5px 9px;
+    }
+}
+
+.btn-back {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1000;
+}
+
+.audio-card {
+    margin-top: 32px;
+    width: 100%;
+    max-width: none;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.audio-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 470px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== Toggle Switch (Sonido) ===== */
+
+.audio-toggle {
+    margin-top: 24px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Empuja el switch a la derecha */
+.audio-toggle .toggle-switch {
+    margin-left: auto;
+}
+
+/* Contenedor del switch */
+.toggle-switch {
+    margin: 0 auto;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    /* ⬅️ más largo */
+    height: 28px;
+}
+
+/* Ocultamos el checkbox real */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Fondo del switch */
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+/* Círculo */
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+}
+
+/* Estado ON */
+.toggle-switch input:checked+.toggle-slider {
+    background: rgba(255, 255, 255, 0.55);
+}
+
+.toggle-switch input:checked+.toggle-slider::before {
+    transform: translateX(32px);
+    /* 60 - 22 - 6 */
+}
+
+/* Focus accesible */
+.toggle-switch input:focus-visible+.toggle-slider {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 3px;
+}
+
+/* Texto OFF / ON */
+.toggle-text {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    opacity: 0.4;
+    transition: opacity 0.25s ease;
+    user-select: none;
+}
+
+/* Cuando está ON */
+.toggle-switch input:checked~.toggle-text.on {
+    opacity: 0.9;
+}
+
+/* Cuando está OFF */
+.toggle-switch input:not(:checked)~.toggle-text.off {
+    opacity: 0.9;
+}
+
+/* El que no corresponde queda más apagado */
+.toggle-switch input:checked~.toggle-text.off,
+.toggle-switch input:not(:checked)~.toggle-text.on {
+    opacity: 0.3;
+}
+
+.stepper-box-audio {
+    display: flex;
+    align-items: center;
+}
+
+/* ----- Estado visual OFF/ON según el toggle (con :has) ----- */
+
+/* Estilo base de los textos */
+.toggle-text {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    user-select: none;
+    transition: opacity .25s ease, color .25s ease, filter .25s ease;
+    opacity: .4;
+    color: rgba(255, 255, 255, .7);
+}
+
+/* Layout: empuja el switch a la derecha */
+.audio-toggle {
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-toggle .toggle-switch {
+    margin-left: auto;
+}
+
+/* Cuando el toggle está ON */
+.audio-toggle:has(input:checked) .toggle-text.on {
+    opacity: .95;
+    color: #15b936;
+    /* tono frío suave */
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, .35));
+}
+
+/* Y el OFF se apaga */
+.audio-toggle:has(input:checked) .toggle-text.off {
+    opacity: .25;
+    color: rgba(255, 255, 255, .5);
+    filter: none;
+}
+
+/* Cuando el toggle está OFF (checked = false) */
+.audio-toggle:not(:has(input:checked)) .toggle-text.off {
+    opacity: .95;
+    color: #e12020;
+    /* tono cálido suave */
+    filter: drop-shadow(0 0 4px rgba(255, 140, 140, .25));
+}
+
+.audio-toggle:not(:has(input:checked)) .toggle-text.on {
+    opacity: .25;
+    color: rgba(255, 255, 255, .5);
+    filter: none;
+}
+
+/* ===== Modal base ===== */
+.modal.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+}
+
+.modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(2px);
+}
+
+.modal__panel {
+    position: relative;
+    width: min(640px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+    background: #0b1022;
+    /* tu base oscura */
+    color: #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    padding: 16px 16px 12px;
+}
+
+.modal__header {
+    display: none;
+}
+
+.modal__close {
+    background: transparent;
+    border: 0;
+    color: #e5e7eb;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px 8px;
+}
+
+.modal__body {
+    display: grid;
+    gap: 6px;
+}
+
+.modal__footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Si ya tenés estilos de toggle/stepper, se aplican automáticamente */

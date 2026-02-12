@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Respirapp</title>
+    <!-- PWA -->
+    <meta name="theme-color" content="#020617">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <!-- iOS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
+    <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <main>
+        <div class="session-wrapper">
+            <header class="app-header">
+                <div id="breathTitle" class="breath-title"></div>
+            </header>
+
+            <div class="session-card">
+                <h1 class="phase-word" id="phaseWord" data-phase>Respirá</h1>
+
+                <div class="timer" id="phaseRemaining" aria-live="polite"></div>
+
+                <div class="session" id="sessionInfo"></div>
+
+                <div id="durations"></div>
+                <div id="breathing"></div>
+            </div>
+
+            <div class="buttons">
+                <button id="play" class="btn btn-icon" aria-pressed="false" aria-label="Iniciar">
+                    <span class="icon icon-play">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8 5l11 7-11 7z" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <span class="icon icon-pause">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <a href="#" id="openAudio" class="link-ghost home-link">
+                Volumen
+            </a>
+        </div>
+        <div class="btn-back">
+            <a id="back" href="./presets.html" class="btn-ghost">← Volver</a>
+        </div>
+
+    </main>
+    <script src="../js/sw-register.js"></script>
+    <script type="module" src="../js/session.js"></script>
+    <script type="module" src="../js/audio_modal.js"></script>
+    <script type="module">
+        import { injectAudioModal, initAudioModal } from '../js/audio_modal.js';
+        injectAudioModal();
+        initAudioModal({ openButtonSelector: '#openAudio', pauseStrategy: 'auto' });
+    </script>
+
+</body>
+
+</html>

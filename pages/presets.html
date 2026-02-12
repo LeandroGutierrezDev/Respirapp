@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Respirapp</title>
+    <!-- PWA -->
+    <meta name="theme-color" content="#020617">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <!-- iOS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
+    <link rel="icon" type="image/x-icon" href="../assets/icons/favicon.ico">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body class="layout-editorial">
+    <main class="screen screen-presets">
+        <header class="screen-header">
+            <h1>¿Para qué necesitás respirar?</h1>
+            <p class="screen-subtitle">Elegí un ritmo y empezamos.</p>
+        </header>
+        <section class="preset-card">
+            <div class="div-preset-option">
+                <button class="preset-option" data-preset="calmar">
+                    <strong>Calmar</strong>
+                    <span>4 · 4 · 6 · 4 — 5 min</span>
+                </button>
+                <p class="preset-desc">Para bajar revoluciones.</p>
+            </div>
+
+            <div class="div-preset-option">
+                <button class="preset-option" data-preset="enfocar">
+                    <strong>Enfocar</strong>
+                    <span>4 · 2 · 4 · 4 — 4 min</span>
+                </button>
+                <p class="preset-desc">Para ordenar la cabeza.</p>
+            </div>
+
+            <div class="div-preset-option">
+                <button class="preset-option" data-preset="soltar">
+                    <strong>Soltar</strong>
+                    <span>4 · 6 · 7 · 2 — 6 min</span>
+                </button>
+                <p class="preset-desc">Para cerrar el día.</p>
+            </div>
+
+            <div class="div-preset-option">
+                <button class="preset-option" data-preset="custom">
+                    <strong>Personalizar</strong>
+                </button>
+                <p class="preset-desc">Elegir tus propios tiempos</p>
+            </div>
+        </section>
+        <div class="btn-back">
+
+            <a href="../" class="btn-ghost">← Volver</a>
+        </div>
+    </main>
+    <script src="../js/sw-register.js"></script>
+    <script type="module" src="../js/presets.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+    "name": "Respirapp",
+    "short_name": "Respirapp",
+    "description": "Prácticas simples de respiración guiada. Sin distracciones.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#020617",
+    "theme_color": "#cbcdd1",
+    "lang": "es",
+    "orientation": "portrait",
+    "categories": ["health", "wellness", "lifestyle"],
+    "icons": [
+        {
+            "src": "./assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "./assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
