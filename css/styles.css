@@ -69,30 +69,29 @@ p {
 
 /* Estilo base del wordmark */
 .respirapp {
+    margin-top: 32px;
     display: inline-block;
     font-weight: 500;
     color: #cbcdd1;
     text-shadow: 0 0 20px rgba(79, 195, 247, .15);
     transform-origin: center;
-    /* timing tipo “sine” para inspirar/espirar continuo */
     animation: respiracion 5s cubic-bezier(.445, .05, .55, .95) infinite;
-    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    /* Fuerza GPU */
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 @keyframes respiracion {
-    0% {
-        transform: scale(0.95);
+
+    0%,
+    100% {
+        transform: scale(0.95) translate3d(0, 0, 0);
         opacity: .98;
     }
 
     50% {
-        transform: scale(1.15);
+        transform: scale(1.15) translate3d(0, 0, 0);
         opacity: 1;
-    }
-
-    100% {
-        transform: scale(0.95);
-        opacity: .98;
     }
 }
 
@@ -101,7 +100,6 @@ p {
         animation: none;
     }
 }
-
 
 .card-wrapper {
     margin-top: 16px;
@@ -559,18 +557,36 @@ button:disabled {
    HOME – Layout editorial
    ========================================= */
 
+
 .home.editorial {
     min-height: 100vh;
+    /* Era 90vh */
+    max-height: 100vh;
+    /* AGREGAR ESTO */
     display: flex;
     flex-direction: column;
-    padding: 2.5rem 1.25rem 2rem;
+    padding: 1.5rem 1.25rem 2rem;
+    /* Reducir padding superior */
     box-sizing: border-box;
+    overflow: hidden;
+    /* AGREGAR ESTO - sin scroll */
 }
 
 /* Bloque superior */
 .home-header {
     text-align: center;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    /* Reducir de 5rem */
+    flex-shrink: 0;
+    /* AGREGAR - no se achica en pantallas pequeñas */
+}
+
+.home-subtitle {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    margin-top: 1.5rem;
+    /* Era 32px */
+    line-height: 1.4;
 }
 
 .home-title {
@@ -579,18 +595,13 @@ button:disabled {
     margin: 0 0 0.75rem;
 }
 
-.home-subtitle {
-    font-size: 1.15rem;
-    opacity: 0.85;
-    margin-top: 32px;
-    /* margin: 0; */
-    line-height: 1.4;
-}
-
 /* Espacio respirable */
 .home-spacer {
     flex: 1;
+    min-height: 2rem;
+    /* AGREGAR - espacio mínimo */
 }
+
 
 /* Bloque inferior */
 .home-actions {
@@ -615,9 +626,14 @@ button:disabled {
     text-decoration: none;
     border-radius: var(--btn-radius);
     box-shadow: var(--btn-shadow);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    /* Reducir de 1rem */
     transition: transform .08s ease, box-shadow .15s ease;
+    flex-shrink: 0;
+    /* AGREGAR */
 }
+
+
 
 .home-cta:active {
     transform: scale(0.97);
@@ -626,11 +642,11 @@ button:disabled {
 
 /* Botón secundario */
 .home-link {
-    margin-bottom: 16px;
+    margin-bottom: 0.75rem;
+    /* Reducir de 1rem y 2rem */
     width: 100%;
     max-width: 320px;
     height: 44px;
-    margin-bottom: 2rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -641,6 +657,8 @@ button:disabled {
     opacity: 0.75;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: var(--btn-radius);
+    flex-shrink: 0;
+    /* AGREGAR */
 }
 
 .home-link:active {
@@ -874,7 +892,7 @@ button:disabled {
     position: fixed;
     right: 16px;
     bottom: 16px;
-    z-index: 1000;
+    /* z-index: 1000; */
 }
 
 .audio-card {
@@ -1073,7 +1091,6 @@ button:disabled {
 .modal__panel {
     position: relative;
     width: min(640px, calc(100vw - 32px));
-    max-height: calc(100vh - 32px);
     overflow: auto;
     background: #0b1022;
     /* tu base oscura */
@@ -1087,7 +1104,7 @@ button:disabled {
     width: 100%;
     max-width: 420px;
     /* clave */
-    max-height: 90vh;
+   
     overflow-y: auto;
     box-sizing: border-box;
 }
