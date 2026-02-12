@@ -122,7 +122,7 @@ p {
     height: 220px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
 
 }
@@ -313,6 +313,10 @@ input[type="number"] {
 
 .stepper-box input[type="number"]:focus {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
 .stepper-btn {
@@ -344,11 +348,12 @@ input[type="number"] {
 }
 
 .stepper-row {
-    display: grid;
-    grid-template-columns: 160px auto;
-    /* ancho fijo para labels */
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
+    /* importante */
 }
 
 .stepper-row label {
@@ -879,7 +884,7 @@ button:disabled {
     height: 260px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
 }
 
@@ -962,6 +967,7 @@ button:disabled {
 
 /* Texto OFF / ON */
 .toggle-text {
+    margin: 0 8px;
     font-size: 1rem;
     letter-spacing: 0.08em;
     opacity: 0.4;
@@ -1050,9 +1056,11 @@ button:disabled {
 .modal {
     position: fixed;
     inset: 0;
-    display: grid;
-    place-items: center;
-    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    overflow-x: hidden;
 }
 
 .modal__overlay {
@@ -1073,6 +1081,15 @@ button:disabled {
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
     padding: 16px 16px 12px;
+}
+
+.modal__panel {
+    width: 100%;
+    max-width: 420px;
+    /* clave */
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .modal__header {
