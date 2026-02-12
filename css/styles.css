@@ -35,7 +35,7 @@
     position: fixed;
     right: 16px;
     top: 16px;
-    z-index: 1000;
+
 }
 
 /* =========================================
@@ -912,6 +912,7 @@ button:disabled {
     height: 470px;
     align-items: center;
     justify-content: center;
+    
 }
 
 /* ===== Toggle Switch (Sonido) ===== */
@@ -1091,6 +1092,7 @@ button:disabled {
 .modal__panel {
     position: relative;
     width: min(640px, calc(100vw - 32px));
+    
     overflow: auto;
     background: #0b1022;
     /* tu base oscura */
@@ -1104,7 +1106,7 @@ button:disabled {
     width: 100%;
     max-width: 420px;
     /* clave */
-   
+    max-height: 90vh;
     overflow-y: auto;
     box-sizing: border-box;
 }
