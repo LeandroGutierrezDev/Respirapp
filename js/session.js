@@ -1,5 +1,5 @@
 import { playTimer, pauseTimer, resetTimer } from '../js/timer.js';
-import { subscribe, getState } from '../js/state.js';
+import { subscribe, getState, SessionStatus } from '../js/state.js';
 
 const playBtn = document.getElementById('play');
 const backBtn = document.getElementById('back');
@@ -19,26 +19,39 @@ let lastSessionRemaining = null;
 
 initSessionUI();
 
+subscribe(syncPlayButton);
+
 function syncPlayButton() {
     const { session } = getState();
-    const isRunning = session.status === 'running';
-    playBtn.setAttribute('aria-pressed', isRunning ? 'true' : 'false');
-    playBtn.setAttribute('aria-label', isRunning ? 'Pausar' : 'Iniciar');
-}
+    const status = session.status;
 
-// Primer render del estado del botón
-syncPlayButton();
+    const isPreparing = status === SessionStatus.PREPARING;
+    const isRunning = status === SessionStatus.RUNNING;
+    const isActive = isPreparing || isRunning;
+
+    // Estado visual
+    playBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    playBtn.setAttribute('aria-label', isActive ? 'Pausar' : 'Iniciar');
+
+    // Bloqueo durante PREPARING
+    playBtn.toggleAttribute('disabled', isPreparing);
+    playBtn.setAttribute('aria-disabled', isPreparing ? 'true' : 'false');
+}
 
 playBtn.addEventListener('click', () => {
     const { session } = getState();
-    if (session.status === 'running') {
+    const status = session.status;
+
+    // Durante PREPARING no se permite interacción
+    if (status === SessionStatus.PREPARING) return;
+
+    if (status === SessionStatus.RUNNING) {
         pauseTimer();
     } else {
         playTimer();
     }
-    // Sincronizar icono/label tras la acción
-    setTimeout(syncPlayButton, 0);
 });
+
 
 backBtn.addEventListener('click', () => {
     resetTimer();

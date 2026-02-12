@@ -14,6 +14,8 @@ import {
 let interval = null;
 let phaseStep = 0;
 
+const BASE = window.location.origin + window.location.pathname.split('/pages')[0] + '/';
+
 // AudioMgr basado en archivos + Web Audio API
 const AudioMgr = (() => {
     let ctx = null;
@@ -22,16 +24,13 @@ const AudioMgr = (() => {
 
     // Mapas de archivos (ajustados a tu estructura)
     const FILES = {
-        countdown: '/assets/sounds/countdown-hold.mp3',
-        sessionEnd: '/assets/sounds/session-end.mp3',
-        // Si querés 1 solo sonido para todas las fases, descomentá y poné el archivo:
-        // chime: '/assets/sounds/chime.mp3',
-        // Sonidos por fase (opcional, si alguno no existe, no pasa nada)
+        countdown: `${BASE}assets/sounds/countdown-hold.mp3`,
+        sessionEnd: `${BASE}assets/sounds/session-end.mp3`,
         phase: {
-            inhale: '/assets/sounds/phase-inhale.mp3',
-            holdAfterInhale: '/assets/sounds/countdown-hold.mp3',
-            exhale: '/assets/sounds/phase-exhale.mp3',
-            holdAfterExhale: '/assets/sounds/countdown-hold.mp3'
+            inhale: `${BASE}assets/sounds/phase-inhale.mp3`,
+            holdAfterInhale: `${BASE}assets/sounds/countdown-hold.mp3`,
+            exhale: `${BASE}assets/sounds/phase-exhale.mp3`,
+            holdAfterExhale: `${BASE}assets/sounds/countdown-hold.mp3`
         }
     };
 
