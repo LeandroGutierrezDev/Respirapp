@@ -123,8 +123,9 @@ p {
     margin: 0px 0px 16px;
 }
 
-/* Estilo base del wordmark */
-/* Base */
+/* Accesibilidad: respeta la preferencia del sistema operativo.
+   Los usuarios con "Eliminar animaciones" activado no verán esta animación,
+   lo cual es intencional y cumple con WCAG 2.1 (criterio 2.3.3) */
 .respirapp {
     margin-top: 32px;
     display: inline-block;
