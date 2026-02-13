@@ -50,9 +50,12 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
-    overscroll-behavior: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 body {
@@ -1406,10 +1409,12 @@ button,
 .config-volver {
     margin-top: 1rem;
 }
+
 main.home.editorial {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* asegura el espacio total */
+    height: 100vh;
+    /* asegura el espacio total */
     justify-content: space-between;
 }
 
@@ -1423,7 +1428,7 @@ main.home.editorial {
 
 /* Ya no hace falta que el spacer crezca */
 .home-spacer {
-    height: auto;   /* podés dejar 0 si querés */
+    height: auto;
     min-height: 0;
     flex: 0;
 }

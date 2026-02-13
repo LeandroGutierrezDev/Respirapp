@@ -91,10 +91,19 @@ self.addEventListener('activate', (event) => {
     })());
 });
 
-async function networkFirstHTML(request) {
+async function networkFirstHTML(request, preloadResponse) {
     const cache = await caches.open(PAGES_CACHE);
 
     try {
+        // Intentar usar la respuesta precargada primero
+        const preloaded = await preloadResponse;
+        if (preloaded) {
+            console.log('[SW] Usando navigation preload para:', request.url);
+            cache.put(request, preloaded.clone());
+            return preloaded;
+        }
+
+        // Si no hay preload, fetch normal
         const fresh = await fetch(request);
         if (fresh.ok) {
             cache.put(request, fresh.clone());
@@ -174,9 +183,9 @@ self.addEventListener('fetch', (event) => {
     if (!url.protocol.startsWith('http')) return;
     if (req.method !== 'GET') return;
 
-    // Navegación (HTML)
+    // Navegación (HTML) - pasar preloadResponse
     if (req.mode === 'navigate') {
-        event.respondWith(networkFirstHTML(req));
+        event.respondWith(networkFirstHTML(req, event.preloadResponse));
         return;
     }
 
