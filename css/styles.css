@@ -42,6 +42,10 @@
 
     /* Contenedor */
     --container-w: min(100%, var(--app-max-width, 420px));
+
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+
 }
 
 *,
@@ -53,22 +57,36 @@
 
 html,
 body {
-    margin: 0;
     padding: 0;
+    margin: 0;
     height: 100%;
+    background: #020617
 }
 
 body {
     margin: 0;
     font-family: system-ui, sans-serif;
+
     background: var(--bg);
     color: var(--fg);
-    display: grid;
-    place-items: center;
+
+    /* Evita el scroll fantasma en móviles */
     min-height: 100dvh;
+    /* viewport dinámico real */
+    min-height: 100svh;
+    /* fallback */
+    min-height: -webkit-fill-available;
+    /* fallback iOS */
+
+    /* safe areas (notches) */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
+
+    /* tipografía base */
     font-size: var(--fs-base);
+
+    /* Nunca scroll horizontal por sombras/transforms */
+    overflow-x: hidden;
 }
 
 * {
@@ -89,14 +107,15 @@ body {
    ========================================= */
 
 main {
+
     width: min(100%, var(--app-max-width));
     margin: 0 auto;
     padding: 0 16px 32px;
-    min-height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    gap: 16px;
+
 
 }
 
@@ -105,40 +124,60 @@ p {
 }
 
 /* Estilo base del wordmark */
+/* Base */
 .respirapp {
     margin-top: 32px;
     display: inline-block;
     font-weight: 500;
     color: #cbcdd1;
     text-shadow: 0 0 20px rgba(79, 195, 247, .15);
+
+    /* Aceleración GPU y estabilidad */
     transform-origin: center;
-    animation: respiracion 5s cubic-bezier(.445, .05, .55, .95) infinite;
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateZ(0) scale(.95);
+    /* estado inicial explícito */
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     will-change: transform, opacity;
+
+    /* Animación */
+    animation: respiracion 5s cubic-bezier(.445, .05, .55, .95) infinite both;
 }
 
+/* Keyframes estándar */
 @keyframes respiracion {
 
     0%,
     100% {
-        transform: scale(0.95) translate3d(0, 0, 0);
-        -webkit-transform: scale(0.95) translate3d(0, 0, 0);
+        transform: scale(.95) translateZ(0);
         opacity: .98;
     }
 
     50% {
-        transform: scale(1.15) translate3d(0, 0, 0);
-        -webkit-transform: scale(1.15) translate3d(0, 0, 0);
+        transform: scale(1.15) translateZ(0);
         opacity: 1;
     }
 }
 
+/* Keyframes WebKit (iOS Safari < 13) */
+@-webkit-keyframes respiracion {
+
+    0%,
+    100% {
+        -webkit-transform: scale(.95) translateZ(0);
+        opacity: .98;
+    }
+
+    50% {
+        -webkit-transform: scale(1.15) translateZ(0);
+        opacity: 1;
+    }
+}
+
+/* Accesibilidad */
 @media (prefers-reduced-motion: reduce) {
     .respirapp {
-        animation: none;
+        animation: none !important;
+        transform: scale(1) translateZ(0);
     }
 }
 
@@ -1413,9 +1452,16 @@ button,
 main.home.editorial {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    /* asegura el espacio total */
     justify-content: space-between;
+    min-height: 100dvh;
+    min-height: 100svh;
+    min-height: -webkit-fill-available;
+    overflow: clip;
+    align-items: center;
+    max-width: var(--app-max-width);
+    margin-inline: auto;
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
 }
 
 /* Centra el contenido del header */
