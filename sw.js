@@ -1,4 +1,4 @@
-const VERSION = 'v1.0.9';
+const VERSION = 'v1.0.11';
 
 const SHELL_CACHE = `respira-shell-${VERSION}`;
 const PAGES_CACHE = `respira-pages-${VERSION}`;
