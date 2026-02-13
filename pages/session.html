@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Respirapp</title>
     <!-- PWA -->
     <meta name="theme-color" content="#020617">
@@ -17,14 +17,14 @@
 </head>
 
 <body>
-    <main>
+    <main class="home editorial">
         <div class="session-wrapper">
             <header class="app-header">
                 <div id="breathTitle" class="breath-title"></div>
             </header>
 
             <div class="session-card">
-                <h1 class="phase-word" id="phaseWord" data-phase>Respirá</h1>
+                <h1 class="phase-word" id="phaseWord" data-phase>Respirar</h1>
 
                 <div class="timer" id="phaseRemaining" aria-live="polite"></div>
 
@@ -33,29 +33,25 @@
                 <div id="durations"></div>
                 <div id="breathing"></div>
             </div>
-
-            <div class="buttons">
-                <button id="play" class="btn btn-icon" aria-pressed="false" aria-label="Iniciar">
-                    <span class="icon icon-play">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M8 5l11 7-11 7z" fill="currentColor" />
-                        </svg>
-                    </span>
-                    <span class="icon icon-pause">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
-                        </svg>
-                    </span>
-                </button>
+            <div class="order-btns">
+                <div class="buttons">
+                    <button id="play" class="btn btn-icon" aria-pressed="false" aria-label="Iniciar">
+                        <span class="icon icon-play">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8 5l11 7-11 7z" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <span class="icon icon-pause">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <a href="#" id="openAudio" class="link-ghost home-link">Panel de Volumen</a>
+                <a id="back" href="./presets.html" class="btn-ghost home-link">← Volver</a>
             </div>
-            <a href="#" id="openAudio" class="link-ghost home-link">
-                Volumen
-            </a>
         </div>
-        <div class="btn-back">
-            <a id="back" href="./presets.html" class="btn-ghost">← Volver</a>
-        </div>
-
     </main>
     <script src="../js/sw-register.js"></script>
     <script type="module" src="../js/session.js"></script>

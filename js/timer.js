@@ -28,9 +28,9 @@ const AudioMgr = (() => {
         sessionEnd: `${BASE}assets/sounds/session-end.mp3`,
         phase: {
             inhale: `${BASE}assets/sounds/phase-inhale.mp3`,
-            holdAfterInhale: `${BASE}assets/sounds/countdown-hold.mp3`,
+            holdAfterInhale: `${BASE}assets/sounds/phase-inhale.mp3`,
             exhale: `${BASE}assets/sounds/phase-exhale.mp3`,
-            holdAfterExhale: `${BASE}assets/sounds/countdown-hold.mp3`
+            holdAfterExhale: `${BASE}assets/sounds/phase-exhale.mp3`
         }
     };
 

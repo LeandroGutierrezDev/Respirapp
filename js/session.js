@@ -6,11 +6,11 @@ const backBtn = document.getElementById('back');
 
 /* 1) Labels: usar las fases reales del state/timer */
 const PHASE_LABEL = {
-    inhale: 'Inhalá',
-    holdAfterInhale: 'Sostené',
-    exhale: 'Exhalá',
-    // Si usás hold post-exhalar:
-    holdAfterExhale: 'Sostené'
+    inhale: 'Inhalar',
+    holdAfterInhale: 'Sostener',
+    exhale: 'Exhalar',
+    holdAfterExhale: 'Sostener',
+    finished: 'Buen trabajo'
 };
 
 let lastPhase = null;
@@ -66,7 +66,7 @@ function getPresetNameFallback() {
     if (n1) return n1;
     const n2 = localStorage.getItem('respira-last-preset-name');
     if (n2) return n2;
-    return 'Respiración';
+    return 'Respirar';
 }
 
 /* 3) Pattern: ya no existe config.hold; usar holdAfterInhale (y opcionalmente el post-exhale) */
@@ -129,7 +129,7 @@ export function initSessionUI() {
         } else if (sessionStatus === 'preparing') {
             setPhaseWord('Preparados...');
         } else if (sessionStatus === 'idle') {
-            setPhaseWord('Respirá');
+            setPhaseWord('Respirar');
         }
 
         // Animación del texto por fase
@@ -160,6 +160,7 @@ export function initSessionUI() {
         } else if (session.status === 'running' || session.status === 'paused') {
             infoEl.textContent = `Tiempo restante: ${formatMMSS(session.remaining)}`;
         } else if (session.status === 'finished') {
+            phaseEl.textContent = 'Buen trabajo'
             infoEl.textContent = 'Sesión terminada';
         } else {
             infoEl.textContent = '';

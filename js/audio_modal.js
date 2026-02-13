@@ -10,19 +10,19 @@ const LIMITS = { min: 0, max: 10 };
 export function injectAudioModal() {
     // Si ya existe, no lo duplicamos
     if (document.getElementById('audioModal')) return;
-
     const wrapper = document.createElement('div');
+
     wrapper.innerHTML = `
 <div id="audioModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="audioModalTitle" hidden>
   <div class="modal__overlay" data-audio-close></div>
   <div class="modal__panel" role="document">
     <header class="modal__header">
-      <h2 id="audioModalTitle"></h2>
+        <h1 class="phase-word" id="audioModalTitle"></h1>
       <button type="button" class="modal__close" data-audio-close aria-label="Cerrar"></button>
     </header>
 
     <div class="audio-wrapper">
-      <h2 class="phase-word">Volúmenes</h2>
+      <h2 class="phase-word">Panel de Volumen</h2>
       <div class="audio-card">
         <!-- PREPARACIÓN -->
         <div class="stepper-row">
@@ -94,8 +94,8 @@ export function injectAudioModal() {
       </div>
     </div>
 
+    <button type="button" class="btn-ghost home-link" data-audio-close>← Volver</button>
     <footer class="modal__footer">
-      <button type="button" class="link-ghost btn-ghost" data-audio-close>← Volver</button>
     </footer>
   </div>
 </div>
@@ -149,9 +149,9 @@ function loadAudioUI() {
     const audio = config.audio ?? {};
 
     EL.soundEnabled.checked = audio.enabled ?? true;
-    EL.countdownVolume.value = from01(audio.countdown?.volume ?? 1.0);
-    EL.inhaleVolume.value = from01(audio.phases?.inhale ?? 1.0);
-    EL.holdAfterInhaleVolume.value = from01(audio.phases?.holdAfterInhale ?? 0.4);
+    EL.countdownVolume.value = from01(audio.countdown?.volume ?? .6);
+    EL.inhaleVolume.value = from01(audio.phases?.inhale ?? 0.7);
+    EL.holdAfterInhaleVolume.value = from01(audio.phases?.holdAfterInhale ?? 0.3);
     EL.exhaleVolume.value = from01(audio.phases?.exhale ?? 0.7);
     EL.holdAfterExhaleVolume.value = from01(audio.phases?.holdAfterExhale ?? 0.3);
     EL.sessionEndVolume.value = from01(audio.sessionEnd?.volume ?? 1.0);

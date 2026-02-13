@@ -5,6 +5,7 @@
     /* App */
     --bg: #020617;
     --fg: #cbcdd1;
+    --app-max-width: 420px;
 
     /* Animación respiración */
     --scale-min: 1;
@@ -17,12 +18,30 @@
     --btn-fg: #0b132b;
     --btn-radius: 10px;
     --btn-height: 48px;
-    /* tamaño táctil (>=44px) */
     --btn-minw: 56px;
+    /* tamaño táctil >=44px */
     --btn-gap: 36px;
     --btn-shadow: 0 2px 10px rgba(0, 0, 0, .18);
     --btn-shadow-pressed: 0 1px 6px rgba(0, 0, 0, .24);
-    --app-max-width: 420px;
+
+    /* Escala de espacios */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    /* Tipografía fluida */
+    --fs-base: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+    --fs-sub: clamp(0.95rem, 0.8rem + 0.7vw, 1.1rem);
+    --fs-title: clamp(1.6rem, 1.2rem + 2.5vw, 2.2rem);
+    --fs-phase: clamp(1.4rem, 1rem + 3.5vw, 2.5rem);
+    --fs-timer: clamp(2.6rem, 8vw, 5rem);
+
+    /* Contenedor */
+    --container-w: min(100%, var(--app-max-width, 420px));
 }
 
 *,
@@ -30,6 +49,30 @@
 *::after {
     box-sizing: border-box;
 }
+
+html,
+body {
+    overscroll-behavior: none;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    display: grid;
+    place-items: center;
+    min-height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    font-size: var(--fs-base);
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
 
 .colaborar {
     position: fixed;
@@ -41,15 +84,6 @@
 /* =========================================
    LAYOUT BASE
    ========================================= */
-body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
-}
 
 main {
     width: min(100%, var(--app-max-width));
@@ -77,8 +111,10 @@ p {
     transform-origin: center;
     animation: respiracion 5s cubic-bezier(.445, .05, .55, .95) infinite;
     transform: translate3d(0, 0, 0);
-    /* Fuerza GPU */
     -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 @keyframes respiracion {
@@ -86,11 +122,13 @@ p {
     0%,
     100% {
         transform: scale(0.95) translate3d(0, 0, 0);
+        -webkit-transform: scale(0.95) translate3d(0, 0, 0);
         opacity: .98;
     }
 
     50% {
         transform: scale(1.15) translate3d(0, 0, 0);
+        -webkit-transform: scale(1.15) translate3d(0, 0, 0);
         opacity: 1;
     }
 }
@@ -157,6 +195,9 @@ h1 {
     justify-content: center;
     gap: var(--btn-gap);
     margin-top: 2rem;
+    width: 100%;
+    max-width: 320px;
+    margin-top: auto;
 }
 
 /* =========================================
@@ -296,8 +337,8 @@ input[type="number"] {
 }
 
 .stepper-box input[type="number"] {
-    width: 64px;
-    height: 36px;
+    width: 40px;
+    height: 30px;
     text-align: center;
     font-size: 1rem;
     background: #cbcdd1;
@@ -319,7 +360,7 @@ input[type="number"] {
 
 .stepper-btn {
     width: 40px;
-    height: 36px;
+    height: 30px;
     border: none;
     border-radius: 10px;
     background: var(--btn-bg);
@@ -372,7 +413,6 @@ button {
     gap: .5rem;
 
     font-size: 1.05rem;
-    font-weight: 600;
     letter-spacing: 0.2px;
 
     color: var(--btn-fg);
@@ -425,8 +465,6 @@ button:disabled {
     font-size: 1.1rem;
     font-weight: 600;
     text-decoration: none;
-    margin-bottom: 2rem;
-
     border-radius: var(--btn-radius);
     box-shadow: var(--btn-shadow);
 
@@ -543,8 +581,9 @@ button:disabled {
 } */
 
 .donate-btn {
+    text-align: center;
     display: inline-block;
-    margin-top: 1rem;
+    margin: 1rem 0;
     padding: 0.75rem 1.25rem;
     border-radius: 12px;
     background: #cbcdd1;
@@ -558,19 +597,7 @@ button:disabled {
    ========================================= */
 
 
-.home.editorial {
-    min-height: 100vh;
-    /* Era 90vh */
-    max-height: 100vh;
-    /* AGREGAR ESTO */
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 1.25rem 2rem;
-    /* Reducir padding superior */
-    box-sizing: border-box;
-    overflow: hidden;
-    /* AGREGAR ESTO - sin scroll */
-}
+
 
 /* Bloque superior */
 .home-header {
@@ -595,11 +622,9 @@ button:disabled {
     margin: 0 0 0.75rem;
 }
 
-/* Espacio respirable */
 .home-spacer {
     flex: 1;
     min-height: 2rem;
-    /* AGREGAR - espacio mínimo */
 }
 
 
@@ -626,7 +651,7 @@ button:disabled {
     text-decoration: none;
     border-radius: var(--btn-radius);
     box-shadow: var(--btn-shadow);
-    margin-bottom: 0.75rem;
+    /* margin-bottom: 0.75rem; */
     /* Reducir de 1rem */
     transition: transform .08s ease, box-shadow .15s ease;
     flex-shrink: 0;
@@ -676,15 +701,11 @@ button:disabled {
     padding: 2rem 1.25rem;
 }
 
-.screen-subtitle {
-    opacity: 0.8;
-    max-width: 28ch;
-    margin: 0 auto;
-    line-height: 1.5;
-}
 
 /* Botón fantasma */
 .btn-ghost {
+    width: 100%;
+    max-width: 320px;
     height: 44px;
     display: flex;
     background: none;
@@ -694,9 +715,10 @@ button:disabled {
     border-radius: var(--btn-radius);
     font-size: 0.95rem;
     text-decoration: none;
-    align-self: flex-end;
+    margin: 0px auto;
+    align-content: center;
     align-items: center;
-    margin-top: 16px;
+    justify-content: center;
 }
 
 
@@ -717,12 +739,14 @@ button:disabled {
 }
 
 .preset-card {
+    width: 100%;
+    max-width: 320px;
     background: rgba(255, 255, 255, 0.04);
     border-radius: var(--btn-radius);
     padding: 8px 16px;
     text-align: left;
     cursor: pointer;
-    margin-top: 16px;
+    margin: 16px auto;
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
@@ -730,7 +754,7 @@ button:disabled {
     background: rgba(255, 255, 255, 0.08);
 }
 
-.preset-card:active {
+.preset-option:active {
     transform: scale(0.98);
 }
 
@@ -764,14 +788,6 @@ button:disabled {
     margin-bottom: 20px;
 }
 
-/* =========================
-   LAYOUT EDITORIAL (NO CENTRADO)
-   ========================= */
-
-/* body.layout-editorial {
-    display: block;
-    height: 100dvw;
-} */
 
 /* =========================
    SCREEN PRESETS
@@ -795,11 +811,6 @@ button:disabled {
     font-size: 1.9rem;
 }
 
-.screen-subtitle {
-    opacity: 0.8;
-    max-width: 30ch;
-    margin: 0 auto;
-}
 
 /* =========================
    PRESET GRID (SIN SCROLL)
@@ -852,22 +863,32 @@ button:disabled {
 .about-cards {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
 }
 
-.session-wraper {
-    height: 400px;
+.session-wrapper {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    gap: var(--space-4);
+    height: auto;
+    min-height: unset;
+    padding-block: clamp(12px, 6vh, 40px);
+
 }
 
 .session-card {
+    flex: 1;
+    height: 240px;
     display: flex;
     flex-direction: column;
-    height: 400px;
     align-items: center;
+    gap: var(--space-4);
+    margin-top: clamp(8px, 3vh, 24px);
     justify-content: center;
+
 }
 
 .breath-title {
@@ -888,37 +909,70 @@ button:disabled {
     }
 }
 
-.btn-back {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    /* z-index: 1000; */
-}
 
 .audio-card {
-    margin-top: 32px;
-    width: 100%;
-    max-width: none;
-    height: 260px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
+    gap: 16px;
 }
 
 .audio-wrapper {
     display: flex;
+    margin: 0 auto;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* padding: 20px 20px 12px; */
+    -webkit-overflow-scrolling: touch;
     flex-direction: column;
-    height: 470px;
-    align-items: center;
     justify-content: center;
-    
+    align-items: center;
+}
+
+/* Scrollbar personalizado (opcional) */
+.audio-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.audio-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.audio-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.audio-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.audio-wrapper .phase-word {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    color: #cbcdd1;
+}
+
+.audio-wrapper .stepper-row label {
+    font-size: 0.9rem;
+}
+
+
+.audio-wrapper .stepper-box input[type="number"] {
+    width: 40px;
+    height: 30px;
+    font-size: 0.95rem;
 }
 
 /* ===== Toggle Switch (Sonido) ===== */
 
 .audio-toggle {
-    margin-top: 24px;
+    margin-top: 12px;
+    padding: 12px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     align-items: center;
     width: 100%;
 }
@@ -933,9 +987,8 @@ button:disabled {
     margin: 0 auto;
     position: relative;
     display: inline-block;
-    width: 60px;
-    /* ⬅️ más largo */
-    height: 28px;
+    width: 44px;
+    height: 24px;
 }
 
 /* Ocultamos el checkbox real */
@@ -959,8 +1012,8 @@ button:disabled {
 .toggle-slider::before {
     content: '';
     position: absolute;
-    height: 22px;
-    width: 22px;
+    height: 18px;
+    width: 18px;
     left: 3px;
     top: 3px;
     background: #fff;
@@ -974,8 +1027,7 @@ button:disabled {
 }
 
 .toggle-switch input:checked+.toggle-slider::before {
-    transform: translateX(32px);
-    /* 60 - 22 - 6 */
+    transform: translateX(20px);
 }
 
 /* Focus accesible */
@@ -987,24 +1039,33 @@ button:disabled {
 /* Texto OFF / ON */
 .toggle-text {
     margin: 0 8px;
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    opacity: 0.4;
-    transition: opacity 0.25s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
     user-select: none;
 }
 
+.toggle-text.on {
+    color: #4ade80;
+}
+
+.toggle-text.off {
+    color: #94a3b8;
+}
+
 /* Cuando está ON */
-.toggle-switch input:checked~.toggle-text.on {
-    opacity: 0.9;
+.toggle-switch input:checked~.toggle-text.on,
+.audio-toggle:has(input:checked) .toggle-text.on {
+    opacity: 1;
 }
 
 /* Cuando está OFF */
-.toggle-switch input:not(:checked)~.toggle-text.off {
-    opacity: 0.9;
+.toggle-switch input:not(:checked)~.toggle-text.off,
+.audio-toggle:not(:has(input:checked)) .toggle-text.off {
+    opacity: 1;
 }
 
-/* El que no corresponde queda más apagado */
 .toggle-switch input:checked~.toggle-text.off,
 .toggle-switch input:not(:checked)~.toggle-text.on {
     opacity: 0.3;
@@ -1079,35 +1140,31 @@ button:disabled {
     justify-content: center;
     align-items: center;
     padding: 16px;
-    overflow-x: hidden;
+    overflow: hidden;
+    z-index: 9999;
 }
 
 .modal__overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .55);
-    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, .6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
 .modal__panel {
     position: relative;
-    width: min(640px, calc(100vw - 32px));
-    
-    overflow: auto;
+    width: 320px;
+    height: 500px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
     background: #0b1022;
-    /* tu base oscura */
     color: #e5e7eb;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
-    padding: 16px 16px 12px;
-}
-
-.modal__panel {
-    width: 100%;
-    max-width: 420px;
-    /* clave */
-    max-height: 90vh;
-    overflow-y: auto;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -1131,10 +1188,242 @@ button:disabled {
 }
 
 .modal__footer {
-    margin-top: 10px;
+    flex-shrink: 0;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    justify-content: flex-end;
-    gap: 8px;
+    justify-content: flex-start;
+    flex-direction: column-reverse;
 }
 
-/* Si ya tenés estilos de toggle/stepper, se aplican automáticamente */
+/* Pantallas muy pequeñas: ajustar tamaño */
+@media (max-height: 640px) {
+    .modal__panel {
+        height: calc(100vh - 32px);
+    }
+}
+
+@media (max-width: 360px) {
+    .modal__panel {
+        width: calc(100vw - 32px);
+    }
+}
+
+
+/* =========================================
+   PATCH RESPONSIVE MÍNIMO (APPEND ONLY)
+   ========================================= */
+
+
+/* Base tipográfica */
+
+.timer {
+    font-size: var(--fs-timer);
+}
+
+.phase-word {
+    font-size: var(--fs-phase);
+}
+
+.home-title,
+.screen-header h1 {
+    font-size: var(--fs-title);
+}
+
+.home-subtitle {
+    font-size: var(--fs-sub);
+}
+
+/* ---- Viewport robusto (barras del navegador) ---- */
+main,
+.screen,
+.home.editorial,
+.screen-presets {
+    min-height: 100dvh;
+    /* soporta iOS/Android modernos */
+}
+
+/* ---- Contenedor y paddings adaptativos ---- */
+main,
+.screen,
+.home.editorial,
+.screen-presets {
+    width: var(--container-w);
+    padding-inline: 16px;
+}
+
+/* ---- Evitar alturas rígidas que rompen en móvil ---- */
+.card-wrapper,
+.config-card,
+.session-wrapper {
+    margin: auto;
+    height: auto !important;
+    /* sobrescribe alturas fijas */
+    min-height: unset;
+    /* libera restricciones */
+    gap: var(--space-4);
+
+}
+
+/* Mantengo compatibilidad con tu clase actual mal escrita
+   y agrego la correcta para que puedas migrar luego */
+.session-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ---- Header: separo estado "flotante" con un modificador ---- */
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header.is-floating {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+
+/* ---- Botones: evitar anchos fijos y unificar estilos ---- */
+.buttons {
+    width: 100%;
+    max-width: 320px;
+    align-self: center;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    gap: clamp(16px, 6vw, 36px);
+}
+
+button,
+.btn-icon,
+.home-cta,
+.home-link {
+    width: 100%;
+    max-width: 320px;
+    /* buen ancho táctil */
+}
+
+/* Sacamos la rigidez de #play/#pause sin romper el look */
+#play,
+#pause {
+    width: 100%;
+    max-width: 320px;
+    background: #cbcdd1;
+}
+
+/* ---- Grid responsiva de presets (sin media queries) ---- */
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+/* ---- Cards y elementos clicables con feedback suave ---- */
+.preset-card,
+.preset-option {
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+/* ---- Subtítulo: regla única (evita duplicados) ---- */
+.screen-subtitle {
+    opacity: 0.8;
+    max-width: 32ch;
+    margin: 0.25rem auto 0;
+    line-height: 1.5;
+    font-size: var(--fs-sub);
+}
+
+/* ---- Modal: tamaños fluidos seguros ---- */
+.modal__panel {
+    width: clamp(300px, 92vw, 420px);
+    height: clamp(480px, 92dvh, 640px);
+    max-width: none;
+    /* ya lo resuelve clamp */
+    max-height: none;
+    /* ya lo resuelve clamp */
+}
+
+/* ---- Audio: que fluya sin overflow raro ---- */
+/* .audio-wrapper {
+    padding: 16px;
+    max-width: 100%;
+} */
+
+/* ---- Breakpoints ligeros (mobile-first) ---- */
+@media (min-width: 400px) {
+    :root {
+        --btn-gap: 28px;
+    }
+}
+
+@media (min-width: 480px) {
+    :root {
+        --btn-gap: 36px;
+    }
+
+    main,
+    .screen,
+    .home.editorial,
+    .screen-presets {
+        padding-inline: 20px;
+    }
+}
+
+/* ---- Pequeñas pantallas (<=360px): compactar sin romper) ---- */
+@media (max-width: 360px) {
+
+    .btn-icon,
+    .home-cta,
+    .home-link {
+        max-width: 100%;
+    }
+
+    .breath-title {
+        font-size: 0.9rem;
+        padding: 5px 9px;
+    }
+}
+
+#openAudio {
+    display: inline-flex;
+    width: 100%;
+    max-width: 320px;
+    align-self: center;
+    margin-top: var(--space-4);
+}
+
+.order-btns {
+    width: 100%;
+    max-width: 320px;
+}
+
+.config-volver {
+    margin-top: 1rem;
+}
+main.home.editorial {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* asegura el espacio total */
+    justify-content: space-between;
+}
+
+/* Centra el contenido del header */
+.home-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Ya no hace falta que el spacer crezca */
+.home-spacer {
+    height: auto;   /* podés dejar 0 si querés */
+    min-height: 0;
+    flex: 0;
+}

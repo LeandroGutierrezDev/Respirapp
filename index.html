@@ -3,21 +3,16 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Respirapp</title>
-
-
     <!-- PWA -->
     <meta name="theme-color" content="#020617">
     <link rel="manifest" href="./manifest.webmanifest">
-
     <!-- iOS -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
-
     <link rel="icon" type="image/x-icon" href="./assets/icons/favicon.ico">
-
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
@@ -31,7 +26,8 @@
                 </a>
             </div>
         </div>
-
+        
+        <section class="home-spacer"></section>
         <!-- BLOQUE SUPERIOR -->
         <header class="home-header">
             <h1 class="home-title">
@@ -45,21 +41,20 @@
         </header>
 
         <!-- BLOQUE CENTRAL (vacío a propósito, da aire) -->
-        <section class="home-spacer"></section>
+        <div class="order-btns">
+            <!-- BLOQUE INFERIOR -->
+            <a href="./pages/presets.html" class="home-cta">
+                Comenzar
+            </a>
+            <br>
 
-        <!-- BLOQUE INFERIOR -->
-        <a href="./pages/presets.html" class="home-cta">
-            Comenzar
-        </a>
-        <br>
-
-        <a href="#" id="openAudio" class="link-ghost home-link">
-            Sonidos
-        </a>
-        <a href="./pages/about.html" class="link-ghost home-link">
-            Más info
-        </a>
-
+            <a href="#" id="openAudio" class="link-ghost home-link">
+                Panel de Volumen
+            </a>
+            <a href="./pages/about.html" class="link-ghost home-link">
+                Más info
+            </a>
+        </div>
     </main>
     <!-- Service Worker Registration -->
     <script src="./js/sw-register.js"></script>
