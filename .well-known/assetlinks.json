@@ -1,8 +1,14 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.respirapp.app",
-        "sha256_cert_fingerprints": ["2A:C3:3A:0E:75:74:7F:41:7B:90:7A:F7:E3:03:B2:68:F7:5A:BE:38:B3:98:37:02:36:03:F5:58:8E:BC:C3:43"]
-      }
-    }]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.respirapp.app",
+      "sha256_cert_fingerprints": [
+        "2A:C3:3A:0E:75:74:7F:41:7B:90:7A:F7:E3:03:B2:68:F7:5A:BE:38:B3:98:37:02:36:03:F5:58:8E:BC:C3:43"
+      ]
+    }
+  }
+]
