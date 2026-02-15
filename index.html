@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <main>
+    <header class="home-header">
         <div class="colaborar">
             <div class="about-cards">
                 <a class="btn-ghost" href="https://link.mercadopago.com.ar/respirapp"
@@ -27,36 +27,36 @@
                 </a>
             </div>
         </div>
+    </header>
+    <main>
 
         <section class="home-spacer"></section>
         <!-- BLOQUE SUPERIOR -->
-        <header class="home-header">
-            <h1 class="home-title">
-                <span class="respirapp" aria-label="RESPIRAPP">RESPIRAPP</span>
-            </h1>
+        <h1 class="home-title">
+            <span class="respirapp" aria-label="RESPIRAPP">RESPIRAPP</span>
+        </h1>
 
-            <p class="home-subtitle">
-                Respirá un momento. <br>
-                El resto puede esperar.
-            </p>
-        </header>
+        <p class="home-subtitle">
+            Respirá un momento. <br>
+            El resto puede esperar.
+        </p>
 
-        <!-- BLOQUE CENTRAL (vacío a propósito, da aire) -->
-        <div class="order-btns">
-            <!-- BLOQUE INFERIOR -->
-            <a href="./pages/presets.html" class="home-cta">
-                Comenzar
-            </a>
-            <br>
-
-            <a href="#" id="openAudio" class="link-ghost home-link">
-                Panel de Volumen
-            </a>
-            <a href="./pages/about.html" class="link-ghost home-link">
-                Más info
-            </a>
-        </div>
     </main>
+    <!-- BLOQUE CENTRAL (vacío a propósito, da aire) -->
+    <footer class="order-btns">
+        <!-- BLOQUE INFERIOR -->
+        <a href="./pages/presets.html" class="home-cta">
+            Comenzar
+        </a>
+        <br>
+
+        <a href="#" id="openAudio" class="link-ghost home-link">
+            Panel de Volumen
+        </a>
+        <a href="./pages/about.html" class="link-ghost home-link">
+            Más info
+        </a>
+    </footer>
     <!-- Service Worker Registration -->
     <script src="./js/sw-register.js"></script>
     <script type="module" src="./js/audio_modal.js"></script>

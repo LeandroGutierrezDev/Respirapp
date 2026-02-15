@@ -17,11 +17,11 @@
 </head>
 
 <body>
+    <header class="screen-header">
+        <h1 class="phase-word">¿Para qué necesitás respirar?</h1>
+        <p class="screen-subtitle">Elegí un ritmo y empezamos.</p>
+    </header>
     <main>
-        <header class="screen-header">
-            <h1>¿Para qué necesitás respirar?</h1>
-            <p class="screen-subtitle">Elegí un ritmo y empezamos.</p>
-        </header>
         <section class="preset-card">
             <div class="div-preset-option">
                 <button class="preset-option" data-preset="calmar">
@@ -54,10 +54,11 @@
                 <p class="preset-desc">Elegir tus propios tiempos</p>
             </div>
         </section>
-        <!-- <a href="../" class="btn-ghost home-link">← Volver</a> -->
-        <button class="btn-ghost home-link" onclick="window.history.back();">← Volver</button>
-
     </main>
+    <footer class="order-btns">
+        <button class="btn-ghost home-link" onclick="window.history.back();">← Volver</button>
+    </footer>
+
     <script src="../js/sw-register.js"></script>
     <script type="module" src="../js/presets.js"></script>
 </body>

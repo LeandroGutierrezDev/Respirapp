@@ -17,11 +17,11 @@
 </head>
 
 <body>
-    <main>
-        <header class="app-header">
-            <!-- <a href="/pages/about.html" class="info-btn" aria-label="Sobre Respirá">i</a> -->
-        </header>
+    <header class="confi-header">
+        <!-- <a href="/pages/about.html" class="info-btn" aria-label="Sobre Respirá">i</a> -->
         <h1 class="phase-word">Personalizar</h1>
+    </header>
+    <main>
         <div class="config-card">
             <!--DURACIÓN -->
             <div class="stepper-row">
@@ -96,28 +96,28 @@
         </div>
 
 
-        <div class="order-btns">
-            <button id="play" class="btn btn-icon" aria-pressed="false" aria-label="Iniciar">
-
-                <span class="icon icon-play">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8 5l11 7-11 7z" fill="currentColor" />
-                    </svg>
-                </span>
-
-                <span class="icon icon-pause">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
-                    </svg>
-                </span>
-            </button>
-            <button class="btn-ghost home-link" onclick="window.history.back();">← Volver</button>
-        </div>
-
-
-
-
     </main>
+    <footer class="order-btns">
+        <button id="play" class="btn btn-icon" aria-pressed="false" aria-label="Iniciar">
+
+            <span class="icon icon-play">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 5l11 7-11 7z" fill="currentColor" />
+                </svg>
+            </span>
+
+            <span class="icon icon-pause">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
+                </svg>
+            </span>
+        </button>
+        <button class="btn-ghost home-link" onclick="window.history.back();">← Volver</button>
+    </footer>
+
+
+
+
     <script src="../js/sw-register.js"></script>
     <script type="module" src="../js/config.js"></script>
 </body>

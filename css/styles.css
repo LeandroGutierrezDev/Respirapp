@@ -59,39 +59,34 @@ html,
 body {
     padding: 0;
     margin: 0;
-    height: 100%;
+    height: 100vh;
     background: #020617
 }
 
 body {
     margin: 0;
     font-family: system-ui, sans-serif;
-
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     background: var(--bg);
     color: var(--fg);
 
-    /* Evita el scroll fantasma en móviles */
     min-height: 100dvh;
-    /* viewport dinámico real */
     min-height: 100svh;
-    /* fallback */
     min-height: -webkit-fill-available;
-    /* fallback iOS */
-
-    /* safe areas (notches) */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
 
-    /* tipografía base */
     font-size: var(--fs-base);
 
-    /* Nunca scroll horizontal por sombras/transforms */
     overflow-x: hidden;
 }
 
 * {
     -webkit-tap-highlight-color: transparent;
 }
+
 
 
 
@@ -110,12 +105,13 @@ main {
 
     width: min(100%, var(--app-max-width));
     margin: 0 auto;
-    padding: 32px 16px;
+    /* padding: 32px 16px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    padding-bottom: 20px;
 
 
 }
@@ -198,8 +194,8 @@ p {
 .config-card {
     margin-top: 32px;
     width: 100%;
-    max-width: none;
-    height: 220px;
+    max-width: 320px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -590,13 +586,13 @@ button:disabled {
 /* =========================================
    RESPONSIVE FINO
    ========================================= */
-@media (max-width: 360px) {
-    :root {
+/* @media (max-width: 360px) { */
+/* :root {
         --btn-height: 44px;
         --btn-minw: 52px;
         --btn-radius: 12px;
     }
-}
+} */
 
 .app-header {
     position: fixed;
@@ -855,13 +851,17 @@ button:disabled {
 }
 
 .screen-header {
+
     text-align: center;
-    margin: 0 1rem
+    margin: 1rem
 }
 
 .screen-header h1 {
+    width: 100%;
+    max-width: 320px;
     margin: 5px 0 8px;
-    font-size: 1.9rem;
+    font-size: 30px;
+    margin: 0 auto;
 }
 
 
@@ -907,6 +907,10 @@ button:disabled {
 
 .preset-option:active {
     transform: scale(0.98);
+}
+
+.about {
+    padding: 0 32px !important;
 }
 
 .about-card {
@@ -970,6 +974,7 @@ button:disabled {
 
 
 .audio-card {
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -981,11 +986,12 @@ button:disabled {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    /* padding: 20px 20px 12px; */
+    width: 100%;
+    max-width: 320px;
     -webkit-overflow-scrolling: touch;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
 /* Scrollbar personalizado (opcional) */
@@ -1284,8 +1290,7 @@ button:disabled {
     font-size: var(--fs-phase);
 }
 
-.home-title,
-.screen-header h1 {
+.home-title {
     font-size: var(--fs-title);
 }
 
@@ -1294,7 +1299,7 @@ button:disabled {
 }
 
 /* ---- Viewport robusto (barras del navegador) ---- */
-main,
+/* main, */
 .screen,
 .home.editorial,
 .screen-presets {
@@ -1303,7 +1308,7 @@ main,
 }
 
 /* ---- Contenedor y paddings adaptativos ---- */
-main,
+/* main, */
 .screen,
 .home.editorial,
 .screen-presets {
@@ -1313,7 +1318,6 @@ main,
 
 /* ---- Evitar alturas rígidas que rompen en móvil ---- */
 .card-wrapper,
-.config-card,
 .session-wrapper {
     margin: auto;
     height: auto !important;
@@ -1378,7 +1382,7 @@ button,
 /* ---- Grid responsiva de presets (sin media queries) ---- */
 .preset-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
 }
 
@@ -1414,21 +1418,20 @@ button,
 } */
 
 /* ---- Breakpoints ligeros (mobile-first) ---- */
-@media (min-width: 400px) {
+/* @media (min-width: 400px) {
     :root {
         --btn-gap: 28px;
     }
-}
+} */
 
 @media (min-width: 480px) {
     :root {
         --btn-gap: 36px;
     }
 
-    main,
+    /* main, */
     .screen,
-    .home.editorial,
-    .screen-presets {
+    .home.editorial {
         padding-inline: 20px;
     }
 }
@@ -1459,17 +1462,18 @@ button,
 .order-btns {
     width: 100%;
     max-width: 320px;
+    margin: 16px auto 32px;
 }
 
 
 
-main.home.editorial {
+.home.editorial {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 100dvh;
+    /* min-height: 100dvh;
     min-height: 100svh;
-    min-height: -webkit-fill-available;
+    min-height: -webkit-fill-available; */
     overflow: clip;
     align-items: center;
     max-width: var(--app-max-width);
@@ -1491,4 +1495,8 @@ main.home.editorial {
     height: auto;
     min-height: 0;
     flex: 0;
+}
+
+.confi-header {
+    margin: 32px auto 0px;
 }
