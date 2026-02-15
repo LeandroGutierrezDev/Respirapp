@@ -110,10 +110,11 @@ main {
 
     width: min(100%, var(--app-max-width));
     margin: 0 auto;
-    padding: 0 16px 32px;
+    padding: 32px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
 
 
@@ -626,13 +627,22 @@ button:disabled {
 .donate-btn {
     text-align: center;
     display: inline-block;
-    margin: 1rem 0;
+    margin-top: 1rem;
     padding: 0.75rem 1.25rem;
     border-radius: 12px;
     background: #cbcdd1;
     color: #020617;
     font-weight: 600;
     text-decoration: none;
+    width: 100%;
+    max-width: 320px;
+}
+
+.whatsapp {
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* =========================================
@@ -710,7 +720,7 @@ button:disabled {
 
 /* Botón secundario */
 .home-link {
-    margin-bottom: 0.75rem;
+    margin-top: 1rem;
     /* Reducir de 1rem y 2rem */
     width: 100%;
     max-width: 320px;
@@ -758,7 +768,7 @@ button:disabled {
     border-radius: var(--btn-radius);
     font-size: 0.95rem;
     text-decoration: none;
-    margin: 0px auto;
+    margin-top: 1rem;
     align-content: center;
     align-items: center;
     justify-content: center;
@@ -789,7 +799,7 @@ button:disabled {
     padding: 8px 16px;
     text-align: left;
     cursor: pointer;
-    margin: 16px auto;
+    margin: 0 auto;
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
@@ -846,7 +856,7 @@ button:disabled {
 
 .screen-header {
     text-align: center;
-    margin-bottom: 0.75rem;
+    margin: 0 1rem
 }
 
 .screen-header h1 {
@@ -900,13 +910,20 @@ button:disabled {
 }
 
 .about-card {
-    padding: 5px;
+    padding: 0 0.5rem;
+    margin: 0 auto;
 }
 
 .about-cards {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-direction: column;
+    width: 100%;
+}
+
+.about-cards .btn-ghost {
+    margin-top: 1rem;
 }
 
 .session-wrapper {
@@ -917,8 +934,7 @@ button:disabled {
     justify-content: space-around;
     gap: var(--space-4);
     height: auto;
-    min-height: unset;
-    padding-block: clamp(12px, 6vh, 40px);
+
 
 }
 
@@ -1316,7 +1332,6 @@ main,
     align-items: center;
     justify-content: space-around;
     width: 100%;
-    max-width: 300px;
 }
 
 /* ---- Header: separo estado "flotante" con un modificador ---- */
@@ -1446,9 +1461,7 @@ button,
     max-width: 320px;
 }
 
-.config-volver {
-    margin-top: 1rem;
-}
+
 
 main.home.editorial {
     display: flex;

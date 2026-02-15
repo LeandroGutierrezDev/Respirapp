@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <main class="home editorial">
+    <main>
         <div class="colaborar">
             <div class="about-cards">
                 <a class="btn-ghost" href="https://link.mercadopago.com.ar/respirapp"
@@ -64,6 +64,28 @@
         import { injectAudioModal, initAudioModal } from './js/audio_modal.js';
         injectAudioModal();
         initAudioModal({ openButtonSelector: '#openAudio' }); 
+    </script>
+    <script>
+        // Solo ejecutar en app Android
+        const isTWA = window.matchMedia('(display-mode: standalone)').matches;
+
+        if (isTWA) {
+            let backPressCount = 0;
+
+            window.addEventListener('load', function () {
+                window.history.pushState({ page: 'home' }, '', '');
+
+                window.addEventListener('popstate', function () {
+                    backPressCount++;
+
+                    if (backPressCount === 1) {
+                        alert('Presiona Atrás de nuevo para salir');
+                        window.history.pushState({ page: 'home' }, '', '');
+                        setTimeout(() => { backPressCount = 0; }, 2000);
+                    }
+                });
+            });
+        }
     </script>
 </body>
 
