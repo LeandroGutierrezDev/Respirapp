@@ -86,7 +86,7 @@ export function injectAudioModal() {
         <div class="stepper-box-audio">
           <span class="toggle-text off">OFF</span>
           <label class="toggle-switch">
-            <input id="soundEnabled" type="checkbox" checked />
+            <input id="soundEnabled" type="checkbox"/>
             <span class="toggle-slider"></span>
           </label>
           <span class="toggle-text on">ON</span>
@@ -147,7 +147,7 @@ function loadAudioUI() {
   const { config } = getState();
   const audio = config.audio ?? {};
 
-  EL.soundEnabled.checked = audio.enabled ?? true;
+  EL.soundEnabled.checked = audio.enabled ?? false;
   EL.countdownVolume.value = from01(audio.countdown?.volume ?? .6);
   EL.inhaleVolume.value = from01(audio.phases?.inhale ?? 0.7);
   EL.holdAfterInhaleVolume.value = from01(audio.phases?.holdAfterInhale ?? 0.3);
@@ -238,7 +238,7 @@ export function initAudioModal({ openButtonSelector = '#openAudio', pauseStrateg
   const firstFocus = modal.querySelector('#soundEnabled');
   const pageRoot = document.querySelector('main');
   let lastActive = null;
-  let wasRunningOnOpen = false; // ← bandera
+  // let wasRunningOnOpen = false; // ← bandera
 
   function isInside(root, el) { return !!(root && el && root.contains(el)); }
 
@@ -246,11 +246,12 @@ export function initAudioModal({ openButtonSelector = '#openAudio', pauseStrateg
     if (e) { e.preventDefault(); e.stopPropagation(); }
     lastActive = document.activeElement;
 
-    // ⬇️ Pausar si corresponde (solo en sesión)
+    // ⬇️ Solo pausa si está corriendo
     if (pauseStrategy === 'auto') {
       const { session } = getState();
-      wasRunningOnOpen = (session.status === 'running');
-      if (wasRunningOnOpen) pauseTimer();
+      if (session.status === 'running') {
+        pauseTimer();
+      }
     }
 
     modal.classList.remove('hidden');
@@ -271,10 +272,6 @@ export function initAudioModal({ openButtonSelector = '#openAudio', pauseStrateg
     modal.classList.add('hidden');
     modal.setAttribute('hidden', '');
 
-    // ⬇️ Reanudar solo si estaba corriendo al abrir y sigue en 'paused'
-    if (pauseStrategy === 'auto' && wasRunningOnOpen && getState().session.status === 'paused') {
-      playTimer();
-    }
 
     // devolver foco fuera del modal
     const returnTarget = lastActive || openBtn || document.body;
@@ -287,6 +284,7 @@ export function initAudioModal({ openButtonSelector = '#openAudio', pauseStrateg
 
   function onEsc(e) {
     if (e.key === 'Escape') closeModal(e);
+
   }
 
   // Abrir (captura para evitar cualquier navegación residual)

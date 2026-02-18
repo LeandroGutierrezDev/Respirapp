@@ -3,6 +3,7 @@ import { subscribe, getState, SessionStatus } from '../js/state.js';
 
 const playBtn = document.getElementById('play');
 const backBtn = document.getElementById('back');
+const openAudio = document.getElementById('openAudio')
 
 /* 1) Labels: usar las fases reales del state/timer */
 const PHASE_LABEL = {
@@ -36,6 +37,10 @@ function syncPlayButton() {
     // Bloqueo durante PREPARING
     playBtn.toggleAttribute('disabled', isPreparing);
     playBtn.setAttribute('aria-disabled', isPreparing ? 'true' : 'false');
+
+    // ⬇️ Bloquear link de audio durante preparación
+    openAudio.classList.toggle('link-disabled', isPreparing);
+    openAudio.setAttribute('aria-disabled', isPreparing ? 'true' : 'false');
 }
 
 playBtn.addEventListener('click', () => {
