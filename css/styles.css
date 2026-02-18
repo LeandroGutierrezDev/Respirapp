@@ -59,7 +59,6 @@ html,
 body {
     padding: 0;
     margin: 0;
-    height: 100vh;
     background: #020617
 }
 
@@ -71,15 +70,12 @@ body {
     flex-direction: column;
     background: var(--bg);
     color: var(--fg);
-
+    min-height: 100vh;
     min-height: 100dvh;
-    min-height: 100svh;
     min-height: -webkit-fill-available;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
-
     font-size: var(--fs-base);
-
     overflow-x: hidden;
 }
 
@@ -1499,4 +1495,30 @@ button,
 
 .confi-header {
     margin: 32px auto 0px;
+}
+
+body {
+    height: 100vh;
+
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 100%;
+    /* No exceder el contenedor */
+}
+
+.home-header {
+    position: absolute;
+    /* Sacarlo del flujo */
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+
+.link-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
