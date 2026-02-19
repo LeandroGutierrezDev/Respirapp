@@ -55,11 +55,9 @@
 }
 
 
-html,
-body {
+html {
     padding: 0;
     margin: 0;
-    background: #020617
 }
 
 body {
@@ -70,8 +68,10 @@ body {
     flex-direction: column;
     background: var(--bg);
     color: var(--fg);
-    min-height: 100vh;
+    min-height: 100svh;
     min-height: 100dvh;
+     height: 100svh;
+     height: 100dvh;
     min-height: -webkit-fill-available;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -86,12 +86,6 @@ body {
 
 
 
-.colaborar {
-    position: fixed;
-    right: 16px;
-    top: 16px;
-
-}
 
 /* =========================================
    LAYOUT BASE
@@ -101,15 +95,11 @@ main {
 
     width: min(100%, var(--app-max-width));
     margin: 0 auto;
-    /* padding: 32px 16px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding-bottom: 20px;
-
-
 }
 
 p {
@@ -203,6 +193,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+        margin: 2rem 0;
 }
 
 .app-header p {
@@ -590,11 +581,6 @@ button:disabled {
     }
 } */
 
-.app-header {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-}
 
 .info-btn {
     width: 36px;
@@ -647,10 +633,8 @@ button:disabled {
 /* Bloque superior */
 .home-header {
     text-align: center;
-    margin-top: 3rem;
-    /* Reducir de 5rem */
+    margin-top: 1rem;
     flex-shrink: 0;
-    /* AGREGAR - no se achica en pantallas pequeñas */
 }
 
 .home-subtitle {
@@ -1295,7 +1279,7 @@ button:disabled {
 }
 
 /* ---- Viewport robusto (barras del navegador) ---- */
-/* main, */
+
 .screen,
 .home.editorial,
 .screen-presets {
@@ -1304,7 +1288,7 @@ button:disabled {
 }
 
 /* ---- Contenedor y paddings adaptativos ---- */
-/* main, */
+
 .screen,
 .home.editorial,
 .screen-presets {
@@ -1332,19 +1316,6 @@ button:disabled {
     align-items: center;
     justify-content: space-around;
     width: 100%;
-}
-
-/* ---- Header: separo estado "flotante" con un modificador ---- */
-.app-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.app-header.is-floating {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
 }
 
 /* ---- Botones: evitar anchos fijos y unificar estilos ---- */
@@ -1425,7 +1396,7 @@ button,
         --btn-gap: 36px;
     }
 
-    /* main, */
+
     .screen,
     .home.editorial {
         padding-inline: 20px;
@@ -1478,14 +1449,6 @@ button,
     padding-bottom: max(32px, env(safe-area-inset-bottom));
 }
 
-/* Centra el contenido del header */
-.home-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
 /* Ya no hace falta que el spacer crezca */
 .home-spacer {
     height: auto;
@@ -1497,25 +1460,13 @@ button,
     margin: 32px auto 0px;
 }
 
-body {
-    height: 100vh;
 
-}
 
-main {
-    flex: 1;
-    overflow-y: auto;
-    max-height: 100%;
-    /* No exceder el contenedor */
-}
-
-.home-header {
-    position: absolute;
-    /* Sacarlo del flujo */
-    top: 1rem;
+/* .home-header {
+       top: 1rem;
     right: 1rem;
     z-index: 10;
-}
+} */
 
 .link-disabled {
     pointer-events: none;
