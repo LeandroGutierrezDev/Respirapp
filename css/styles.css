@@ -68,11 +68,9 @@ body {
     flex-direction: column;
     background: var(--bg);
     color: var(--fg);
-    min-height: 100svh;
-    min-height: 100dvh;
-     height: 100svh;
-     height: 100dvh;
-    min-height: -webkit-fill-available;
+    min-height: 95svh;
+    min-height: 95dvh;
+    min-height: 95vh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     font-size: var(--fs-base);
@@ -193,7 +191,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-        margin: 2rem 0;
+    margin: 2rem 0;
 }
 
 .app-header p {
@@ -772,7 +770,6 @@ button:disabled {
     max-width: 320px;
     background: rgba(255, 255, 255, 0.04);
     border-radius: var(--btn-radius);
-    padding: 8px 16px;
     text-align: left;
     cursor: pointer;
     margin: 0 auto;
@@ -1199,10 +1196,10 @@ button:disabled {
 
 .modal__panel {
     position: relative;
-    width: 320px;
-    height: 500px;
-    max-width: calc(100vw - 32px);
-    max-height: calc(100vh - 32px);
+    width: clamp(300px, 92vw, 420px);
+    height: clamp(480px, 90dvh, 640px);
+    max-width: none;
+    max-height: none;
     display: flex;
     flex-direction: column;
     background: #0b1022;
@@ -1368,28 +1365,6 @@ button,
     font-size: var(--fs-sub);
 }
 
-/* ---- Modal: tamaños fluidos seguros ---- */
-.modal__panel {
-    width: clamp(300px, 92vw, 420px);
-    height: clamp(480px, 92dvh, 640px);
-    max-width: none;
-    /* ya lo resuelve clamp */
-    max-height: none;
-    /* ya lo resuelve clamp */
-}
-
-/* ---- Audio: que fluya sin overflow raro ---- */
-/* .audio-wrapper {
-    padding: 16px;
-    max-width: 100%;
-} */
-
-/* ---- Breakpoints ligeros (mobile-first) ---- */
-/* @media (min-width: 400px) {
-    :root {
-        --btn-gap: 28px;
-    }
-} */
 
 @media (min-width: 480px) {
     :root {
