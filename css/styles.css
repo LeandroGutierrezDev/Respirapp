@@ -61,16 +61,16 @@ html {
 }
 
 body {
-    margin: 0;
+    margin: 0 auto;
     font-family: system-ui, sans-serif;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     background: var(--bg);
     color: var(--fg);
-    min-height: 95svh;
-    min-height: 95dvh;
-    min-height: 95vh;
+    min-height: 98svh;
+    min-height: 98dvh;
+    min-height: 98vh;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     font-size: var(--fs-base);
@@ -766,13 +766,14 @@ button:disabled {
 }
 
 .preset-card {
+    padding: 1rem 1rem 0 1rem;
     width: 100%;
     max-width: 320px;
     background: rgba(255, 255, 255, 0.04);
     border-radius: var(--btn-radius);
     text-align: left;
     cursor: pointer;
-    margin: 0 auto;
+    margin: 0.5rem auto;
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
@@ -828,9 +829,8 @@ button:disabled {
 }
 
 .screen-header {
-
     text-align: center;
-    margin: 1rem
+    margin: 32px auto 0px;
 }
 
 .screen-header h1 {
@@ -896,11 +896,12 @@ button:disabled {
 }
 
 .about-cards {
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-end;
     flex-direction: column;
-    width: 100%;
+    width: 30%;
 }
 
 .about-cards .btn-ghost {
@@ -1351,8 +1352,7 @@ button,
 }
 
 /* ---- Cards y elementos clicables con feedback suave ---- */
-.preset-card,
-.preset-option {
+.preset-card {
     transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 
